@@ -45,12 +45,9 @@ public class MainActivity extends AppCompatActivity {
         btn_getWeatherByName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "You clicked me 2", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "You clicked me 3", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
 
     }
 
