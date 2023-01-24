@@ -3,7 +3,7 @@ Download this app to your Android phone to see the weather forecast!
 This is a Java Andoid App built using a REST API at metaweather.com.
 The app runs asynchronous (non-blocking code) callback functions to get data.
 
-![Alt Image text](/relative/path/to/img.png?raw=true "Optional Title")
+![Alt Image text](https://github.com/RamonJustisOrtega/AndroidWeatherApp/blob/master/AndroidWeatherApp.jpg "README PICTURE")
 
 Android has several libraries to help with asynchronous code.
 We will use Volley.
