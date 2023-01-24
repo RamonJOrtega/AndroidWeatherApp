@@ -45,7 +45,7 @@
         app:layout_constraintTop_toTopOf="@+id/btn_getWeatherByCityID" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/et_dataInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
