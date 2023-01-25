@@ -14,7 +14,7 @@
         android:insetLeft="6dp"
         android:insetRight="0dp"
         android:minHeight="30dp"
-        android:text="GET CITY ID"
+        android:text="CITY ID"
         app:iconPadding="8dp"
         app:layout_constraintEnd_toStartOf="@+id/btn_getWeatherByCityID"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,13 +48,12 @@
         android:id="@+id/et_dataInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="City Name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_getCityID" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <ListView
         android:id="@+id/lv_weatherReports"
@@ -64,5 +63,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter City Name, then click above to make API GET request"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_getCityID" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
