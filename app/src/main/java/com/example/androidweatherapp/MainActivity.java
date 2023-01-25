@@ -41,34 +41,25 @@ public class MainActivity extends AppCompatActivity {
         et_dataInput = findViewById(R.id.et_dataInput);
         lv_weatherReport = findViewById(R.id.lv_weatherReports);
 
+        final WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
+
         //these are click listeners for the buttons
         btn_cityID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String url = "https://geocoding-api.open-meteo.com/v1/search?name=" + et_dataInput.getText().toString();
-
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                // this returned null
+                weatherDataService.getCityID(et_dataInput.getText().toString(), new WeatherDataService.VolleyResponseListener() {
                     @Override
-                    public void onResponse(JSONObject response) {
-                        String cityID = "";
-                        try {
-                            JSONArray cityInfoArr = response.getJSONArray("results");
-                            JSONObject cityInfoObj = cityInfoArr.getJSONObject(0);
-                            cityID = cityInfoObj.getString("id");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        Toast.makeText(MainActivity.this, "City ID = " + cityID, Toast.LENGTH_SHORT).show();
+                    public void onError(String message) {
+                        Toast.makeText(MainActivity.this, "Something wwwwrong", Toast.LENGTH_SHORT).show();
                     }
-                }, new Response.ErrorListener() {
+
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MainActivity.this, "Something Wrong", Toast.LENGTH_SHORT).show();
+                    public void onResponse(String cityID) {
+                        Toast.makeText(MainActivity.this, "Returned an ID of " + cityID, Toast.LENGTH_SHORT).show();
                     }
                 });
-
-                MySingleton.getInstance(MainActivity.this).addToRequestQueue(request);
             }
         });
 
