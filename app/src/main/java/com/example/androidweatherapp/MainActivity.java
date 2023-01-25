@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Instantiate the RequestQueue.
                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-                String url = "https://geocoding-api.open-meteo.com/v1/search?name=Berlin";
+                String url = "https://geocoding-api.open-meteo.com/v1/search?name=" + et_dataInput.getText().toString();
 
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
