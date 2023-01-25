@@ -12,6 +12,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class WeatherDataService {
 
     public static final String QUERY_FOR_CITY_ID = "https://geocoding-api.open-meteo.com/v1/search?name=";
@@ -55,9 +57,9 @@ public class WeatherDataService {
         //return cityID;
     }
 
-//    public List<WeatherReportModel> getCityForecastByID(String cityID) {
-//
-//    }
+    public  getCityForecastByID(String cityID) {
+        List<WeatherReportModel> report = new ArrayList<>()
+    }
 //
 //    public List<WeatherReportModel> getCityForecastByName(String cityName) {
 //
