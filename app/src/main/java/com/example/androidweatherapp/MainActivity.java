@@ -66,17 +66,7 @@ public class MainActivity extends AppCompatActivity {
         btn_getWeatherByID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                weatherDataService.getCityForecastByID(et_dataInput.getText().toString(), new WeatherDataService.VolleyResponseListener() {
-                    @Override
-                    public void onError(String message) {
-                        Toast.makeText(MainActivity.this, "Something wwwwrong", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onResponse(String cityID) {
-                        Toast.makeText(MainActivity.this, "Returned an ID of " + cityID, Toast.LENGTH_SHORT).show();
-                    }
-                });
+                weatherDataService.getCityForecastByID("2950159", "52.52437", "13.41053");
             }
         });
         btn_getWeatherByName.setOnClickListener(new View.OnClickListener() {

@@ -13,6 +13,9 @@ Another alternative is Retrofit which is recommend as part of Jetpack (Googles 2
 We install Volley Library
 Parse a JSON data feed
 
+First we find latitude and longitude by city using the Geo Coding api at https://open-meteo.com/en/docs/geocoding-api.
+Then we use the latitude and longitude to get weather by location.
+
 Thank you freeCodeCamp.org for the tutorial used to create this highly-modified version of the app.
 The biggest change is the removal of the depricated metaWeather API and the more-documented open-meteo API.
 
