@@ -49,8 +49,8 @@ public class WeatherDataService {
                     JSONArray cityInfoArr = response.getJSONArray("results");
                     JSONObject cityInfoObj = cityInfoArr.getJSONObject(0);
                     cityID = cityInfoObj.getString("id");
-                    latitude = cityInfoObj.getString("latitude");
-                    longitude = cityInfoObj.getString("longitude");
+                    latitude = Long.toString(cityInfoObj.getLong("latitude"));
+                    longitude = Long.toString(cityInfoObj.getLong("longitude"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -69,13 +69,38 @@ public class WeatherDataService {
         //return cityID;
     }
 
-    public void getCityForecastByID(String cityID, String latitude, String longitude) {
+    public interface ForeCastByIDResponse {
+        void onError(String message);
+        void onResponse(WeatherReportModel weatherReportModel);
+    }
+
+    public void getCityForecastByID(String cityID, String latitude, String longitude, ForeCastByIDResponse foreCastByIDResponse) {
         List<WeatherReportModel> report = new ArrayList<>();
         String url = QUERY_FOR_CITY_WEATHER_BY_ID_A + latitude + QUERY_FOR_CITY_WEATHER_BY_ID_B + longitude + QUERY_FOR_CITY_WEATHER_BY_ID_C;
+        Toast.makeText(context, url, Toast.LENGTH_SHORT).show();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show();
+                try {
+                    // get the first item
+                    WeatherReportModel single_day_today = new WeatherReportModel();
+
+                    single_day_today.setLatitude(response.getLong("latitude"));
+                    single_day_today.setLongitude(response.getLong("longitude"));
+                    single_day_today.setElevation(response.getLong("elevation"));
+                    single_day_today.setGenerationtime_ms(response.getLong("generationtime_ms"));
+                    single_day_today.setUtc_offset_seconds(response.getInt("utc_offset_seconds"));
+                    single_day_today.setTimezone_abbreviation(response.getString("timezone_abbreviation"));
+                    single_day_today.setHourly(response.getJSONObject("hourly"));
+                    single_day_today.setHourly_units(response.getJSONObject("hourly_units"));
+                    single_day_today.setCurrent_weather(response.getJSONObject("current_weather"));
+
+                    foreCastByIDResponse.onResponse(single_day_today);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override

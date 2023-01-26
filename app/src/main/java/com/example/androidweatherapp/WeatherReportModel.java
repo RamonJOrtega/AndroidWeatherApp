@@ -8,7 +8,7 @@ public class WeatherReportModel {
     private float longitude;
     private float elevation;
     private float generationtime_ms;
-    private float utc_offset_seconds;
+    private int utc_offset_seconds;
     private String timezone;
     private String timezone_abbreviation;
     private JSONObject hourly = new JSONObject();
@@ -17,7 +17,7 @@ public class WeatherReportModel {
     private JSONObject hourly_units = new JSONObject();
     private JSONObject current_weather = new JSONObject();
 
-    public WeatherReportModel(float latitude, float longitude, float elevation, float generationtime_ms, float utc_offset_seconds, String timezone, String timezone_abbreviation, JSONObject hourly, JSONObject hourly_units, JSONObject current_weather) {
+    public WeatherReportModel(float latitude, float longitude, float elevation, float generationtime_ms, int utc_offset_seconds, String timezone, String timezone_abbreviation, JSONObject hourly, JSONObject hourly_units, JSONObject current_weather) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.elevation = elevation;
@@ -28,6 +28,9 @@ public class WeatherReportModel {
         this.hourly = hourly;
         this.hourly_units = hourly_units;
         this.current_weather = current_weather;
+    }
+
+    public WeatherReportModel() {
     }
 
     @Override
@@ -78,11 +81,11 @@ public class WeatherReportModel {
         this.generationtime_ms = generationtime_ms;
     }
 
-    public float getUtc_offset_seconds() {
+    public int getUtc_offset_seconds() {
         return utc_offset_seconds;
     }
 
-    public void setUtc_offset_seconds(float utc_offset_seconds) {
+    public void setUtc_offset_seconds(int utc_offset_seconds) {
         this.utc_offset_seconds = utc_offset_seconds;
     }
 
