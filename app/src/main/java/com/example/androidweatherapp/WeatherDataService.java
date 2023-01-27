@@ -18,25 +18,24 @@ import java.util.List;
 public class WeatherDataService {
 
     public static final String QUERY_FOR_CITY_ID = "https://geocoding-api.open-meteo.com/v1/search?name=";
+    public static final String QUERY_FOR_CITY_NAME = "https://geocoding-api.open-meteo.com/v1/get?id=";
     public static final String QUERY_FOR_CITY_WEATHER_BY_ID_A = "https://api.open-meteo.com/v1/forecast?latitude=";
     public static final String QUERY_FOR_CITY_WEATHER_BY_ID_B = "&longitude=";
-    public static final String QUERY_FOR_CITY_WEATHER_BY_ID_C = "&hourly=temperature_2m";
+    public static final String QUERY_FOR_CITY_WEATHER_BY_ID_C = "&temperature_unit=fahrenheit&hourly=temperature_2m&current_weather=true&timezone=auto&daily=temperature_2m_min&daily=temperature_2m_max&daily=weathercode";
 
     Context context;
     String cityID;
+    String cityName;
     String latitude;
     String longitude;
-
-
     public WeatherDataService(Context context) {
         this.context = context;
     }
 
     public interface VolleyResponseListener {
         void onError(String message);
-        void onResponse(String cityID);
+        void onResponse(String cityID, String latitude, String longitude);
     }
-
     public void getCityID(String cityName, VolleyResponseListener volleyResponseListener) {
         String url = QUERY_FOR_CITY_ID + cityName;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -54,9 +53,8 @@ public class WeatherDataService {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
                 Toast.makeText(context, " City ID = " + cityID + " Latitude = " + latitude + " Longitude = " + longitude, Toast.LENGTH_SHORT).show();
-                volleyResponseListener.onResponse(cityID);
+                volleyResponseListener.onResponse(cityID, latitude, longitude);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -66,37 +64,74 @@ public class WeatherDataService {
             }
         });
         MySingleton.getInstance(context).addToRequestQueue(request);
-        //return cityID;
+    }
+
+    public interface CityNameByIDResponseListener {
+        void onError(String message);
+        void onResponse(String cityName, String latitude, String longitude);
+    }
+    public void getCityName (String cityID, CityNameByIDResponseListener cityNameByIDResponseListener) {
+        String url = QUERY_FOR_CITY_NAME + cityID;
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                cityName = "";
+                latitude = "";
+                longitude = "";
+                try {
+                    JSONArray cityInfoArr = response.getJSONArray("results");
+                    JSONObject cityInfoObj = cityInfoArr.getJSONObject(0);
+                    cityName = cityInfoObj.getString("name");
+                    latitude = Long.toString(cityInfoObj.getLong("latitude"));
+                    longitude = Long.toString(cityInfoObj.getLong("longitude"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(context, " City ID = " + cityID + " Latitude = " + latitude + " Longitude = " + longitude, Toast.LENGTH_SHORT).show();
+                cityNameByIDResponseListener.onResponse(cityName, latitude, longitude);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "Something Wrong", Toast.LENGTH_SHORT).show();
+                cityNameByIDResponseListener.onError("Something is very wrong");
+            }
+        });
+        MySingleton.getInstance(context).addToRequestQueue(request);
     }
 
     public interface ForeCastByIDResponse {
         void onError(String message);
-        void onResponse(WeatherReportModel weatherReportModel);
+        void onResponse(List<WeatherReportModel> weatherReportModels);
     }
-
     public void getCityForecastByID(String cityID, String latitude, String longitude, ForeCastByIDResponse foreCastByIDResponse) {
-        List<WeatherReportModel> report = new ArrayList<>();
+        List<WeatherReportModel> weatherReportModels = new ArrayList<>();
         String url = QUERY_FOR_CITY_WEATHER_BY_ID_A + latitude + QUERY_FOR_CITY_WEATHER_BY_ID_B + longitude + QUERY_FOR_CITY_WEATHER_BY_ID_C;
         Toast.makeText(context, url, Toast.LENGTH_SHORT).show();
+        System.out.println(url);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-//                Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show();
                 try {
                     // get the first item
-                    WeatherReportModel single_day_today = new WeatherReportModel();
+                    JSONObject daily = response.getJSONObject("daily");
+                    JSONArray  date = daily.getJSONArray("time");
+                    JSONArray temperature_2m_min = daily.getJSONArray("temperature_2m_min");
+                    JSONArray temperature_2m_max = daily.getJSONArray("temperature_2m_max");
+                    JSONArray weathercode = daily.getJSONArray("weathercode");
+                    WeatherReportModel one_day_weather = new WeatherReportModel();
+                    one_day_weather.setLatitude(response.getLong("latitude"));
+                    one_day_weather.setLongitude(response.getLong("longitude"));
+                    one_day_weather.setElevation(response.getLong("elevation"));
+                    one_day_weather.setGenerationtime_ms(response.getLong("generationtime_ms"));
+                    one_day_weather.setUtc_offset_seconds(response.getInt("utc_offset_seconds"));
+                    one_day_weather.setTimezone_abbreviation(response.getString("timezone_abbreviation"));
+                    one_day_weather.setDaily_units(response.getJSONObject("daily_units"));
+                    one_day_weather.setDaily(response.getJSONObject("daily"));
 
-                    single_day_today.setLatitude(response.getLong("latitude"));
-                    single_day_today.setLongitude(response.getLong("longitude"));
-                    single_day_today.setElevation(response.getLong("elevation"));
-                    single_day_today.setGenerationtime_ms(response.getLong("generationtime_ms"));
-                    single_day_today.setUtc_offset_seconds(response.getInt("utc_offset_seconds"));
-                    single_day_today.setTimezone_abbreviation(response.getString("timezone_abbreviation"));
-                    single_day_today.setHourly(response.getJSONObject("hourly"));
-                    single_day_today.setHourly_units(response.getJSONObject("hourly_units"));
-                    single_day_today.setCurrent_weather(response.getJSONObject("current_weather"));
+                    weatherReportModels.add(one_day_weather);
 
-                    foreCastByIDResponse.onResponse(single_day_today);
+                    foreCastByIDResponse.onResponse(weatherReportModels);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -112,8 +147,32 @@ public class WeatherDataService {
         //get the json object
         // get each item in the json object and assign to new WeatherReportModel object
     }
-//
-//    public List<WeatherReportModel> getCityForecastByName(String cityName) {
-//
-//    }
+
+    public interface GetCityForecastByNameCallback {
+        void onError(String message);
+        void onResponse(List<WeatherReportModel> weatherReportModels);
+    }
+    public void getCityForecastByName(String cityName, GetCityForecastByNameCallback getCityForecastByNameCallback) {
+        getCityID(cityName, new VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+
+            }
+            @Override
+            public void onResponse(String cityID, String latitude, String longitude) {
+                getCityForecastByID(cityID, latitude, longitude, new ForeCastByIDResponse() {
+                    @Override
+                    public void onError(String message) {
+
+                    }
+
+                    @Override
+                    public void onResponse(List<WeatherReportModel> weatherReportModels) {
+                        getCityForecastByNameCallback.onResponse(weatherReportModels);
+                    }
+                });
+            }
+        });
+
+    }
 }

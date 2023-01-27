@@ -11,13 +11,10 @@ public class WeatherReportModel {
     private int utc_offset_seconds;
     private String timezone;
     private String timezone_abbreviation;
-    private JSONObject hourly = new JSONObject();
-    //hourly.put("time", new Integer(100));
-    //hourly.put("temperature_2m", new Integer(2000));
-    private JSONObject hourly_units = new JSONObject();
-    private JSONObject current_weather = new JSONObject();
+    private JSONObject daily_units = new JSONObject();
+    private JSONObject daily = new JSONObject();
 
-    public WeatherReportModel(float latitude, float longitude, float elevation, float generationtime_ms, int utc_offset_seconds, String timezone, String timezone_abbreviation, JSONObject hourly, JSONObject hourly_units, JSONObject current_weather) {
+    public WeatherReportModel(float latitude, float longitude, float elevation, float generationtime_ms, int utc_offset_seconds, String timezone, String timezone_abbreviation, JSONObject daily_units, JSONObject daily) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.elevation = elevation;
@@ -25,9 +22,8 @@ public class WeatherReportModel {
         this.utc_offset_seconds = utc_offset_seconds;
         this.timezone = timezone;
         this.timezone_abbreviation = timezone_abbreviation;
-        this.hourly = hourly;
-        this.hourly_units = hourly_units;
-        this.current_weather = current_weather;
+        this.daily_units = daily_units;
+        this.daily = daily;
     }
 
     public WeatherReportModel() {
@@ -35,18 +31,13 @@ public class WeatherReportModel {
 
     @Override
     public String toString() {
-        return "WeatherReportModel{" +
-                "latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", elevation=" + elevation +
-                ", generationtime_ms=" + generationtime_ms +
-                ", utc_offset_seconds=" + utc_offset_seconds +
-                ", timezone='" + timezone + '\'' +
-                ", timezone_abbreviation='" + timezone_abbreviation + '\'' +
-                ", hourly=" + hourly +
-                ", hourly_units=" + hourly_units +
-                ", current_weather=" + current_weather +
-                '}';
+        return  "latitude=" + latitude +
+                ", longitude= " + longitude +
+                ", elevation= " + elevation +
+                ", generationtime_ms= " + generationtime_ms +
+                ", utc_offset_seconds= " + utc_offset_seconds +
+                ", timezone= " + timezone + ": " + timezone_abbreviation +
+                ", current_weather= " + daily;
     }
 
     public float getLatitude() {
@@ -105,28 +96,20 @@ public class WeatherReportModel {
         this.timezone_abbreviation = timezone_abbreviation;
     }
 
-    public JSONObject getHourly() {
-        return hourly;
+    public JSONObject getDaily_units() {
+        return daily_units;
     }
 
-    public void setHourly(JSONObject hourly) {
-        this.hourly = hourly;
+    public void setDaily_units(JSONObject daily_units) {
+        this.daily_units = daily_units;
     }
 
-    public JSONObject getHourly_units() {
-        return hourly_units;
+    public JSONObject getDaily() {
+        return daily;
     }
 
-    public void setHourly_units(JSONObject hourly_units) {
-        this.hourly_units = hourly_units;
-    }
-
-    public JSONObject getCurrent_weather() {
-        return current_weather;
-    }
-
-    public void setCurrent_weather(JSONObject current_weather) {
-        this.current_weather = current_weather;
+    public void setDaily(JSONObject daily) {
+        this.daily = daily;
     }
 
     //    public static String getWeatherCodeDescription(int weatherCode) {
