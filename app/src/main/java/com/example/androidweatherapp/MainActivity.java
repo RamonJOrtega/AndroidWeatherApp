@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                         lat = latitude;
                         lon = longitude;
                         System.out.println("what up my man? do we have Latitude: " + lat);
+                        System.out.println("what up my man? do we have Longitude: " + lon);
                         System.out.println("what up my man? do we have cityName: " + cityName);
                     }
                 });
@@ -82,12 +83,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onError(String message) {
                         Toast.makeText(MainActivity.this, "Certainly wrong", Toast.LENGTH_SHORT).show();
+                        System.out.println("for some reason getCityForeCastByID failed to give a response");
                     }
 
                     @Override
                     public void onResponse(List<WeatherReportModel> weatherReportModels) {
-                        // put entire list into listview control
-                        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1);
+                        System.out.println("did we list our weather report model? + " + weatherReportModels);
+                        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
                         lv_weatherReport.setAdapter(arrayAdapter);
                     }
                 });
@@ -114,6 +116,4 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-
 }

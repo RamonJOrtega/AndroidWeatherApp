@@ -109,7 +109,7 @@ public class WeatherDataService {
     public void getCityForecastByID(String cityID, String latitude, String longitude, ForeCastByIDResponse foreCastByIDResponse) {
         List<WeatherReportModel> weatherReportModels = new ArrayList<>();
         String url = QUERY_FOR_CITY_WEATHER_BY_ID_A + latitude + QUERY_FOR_CITY_WEATHER_BY_ID_B + longitude + QUERY_FOR_CITY_WEATHER_BY_ID_C;
-        System.out.println(url);
+        System.out.println("going in for cityForeCastByID at url " + url);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -129,7 +129,7 @@ public class WeatherDataService {
                     one_day_weather.setTimezone_abbreviation(response.getString("timezone_abbreviation"));
                     one_day_weather.setDaily_units(response.getJSONObject("daily_units"));
                     one_day_weather.setDaily(response.getJSONObject("daily"));
-
+                    System.out.println("response aquired");
                     weatherReportModels.add(one_day_weather);
 
                     foreCastByIDResponse.onResponse(weatherReportModels);
