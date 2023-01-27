@@ -140,7 +140,6 @@ public class WeatherDataService {
                         one_day_weather.setDaily_units(response.getJSONObject("daily_units"));
                         one_day_weather.setDaily(response.getJSONObject("daily"));
 
-
                         weatherReportModels.add(one_day_weather);
                         foreCastByIDResponse.onResponse(weatherReportModels);
                     }
