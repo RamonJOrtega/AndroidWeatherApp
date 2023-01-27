@@ -146,7 +146,7 @@ public class WeatherReportModel {
     @Override
     public String toString() {
 
-        return  "Time: " + timezone_abbreviation + " " + day + '\'' +
+        return  "Time Zone Date: " + timezone_abbreviation + " " + day + '\n' +
                 getWeatherCodeDescription(weathercode);
     }
 
