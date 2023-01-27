@@ -121,28 +121,29 @@ public class WeatherDataService {
                     JSONArray temperature_2m_max = daily.getJSONArray("temperature_2m_max");
                     JSONArray weathercode = daily.getJSONArray("weathercode");
 
-                    WeatherReportModel one_day_weather = new WeatherReportModel();
-                    one_day_weather.setLatitude(response.getLong("latitude"));
-                    one_day_weather.setLongitude(response.getLong("longitude"));
-                    one_day_weather.setElevation(response.getLong("elevation"));
-                    one_day_weather.setGenerationtime_ms(response.getLong("generationtime_ms"));
-                    one_day_weather.setUtc_offset_seconds(response.getInt("utc_offset_seconds"));
-                    one_day_weather.setTimezone_abbreviation(response.getString("timezone_abbreviation"));
-                    one_day_weather.setDaily_units(response.getJSONObject("daily_units"));
-                    one_day_weather.setDaily(response.getJSONObject("daily"));
                     System.out.println("forecast response received for days = " + daily.length());
 
                     for (int i = 0; i < date.length(); i++) {
+
+                        WeatherReportModel one_day_weather = new WeatherReportModel();
                         one_day_weather.setDay(date.getString(i));
                         one_day_weather.setDayLowTemp(temperature_2m_min.getLong(i));
                         one_day_weather.setDayHighTemp(temperature_2m_max.getLong(i));
                         one_day_weather.setWeathercode(weathercode.getInt(i));
+
+                        one_day_weather.setLatitude(response.getLong("latitude"));
+                        one_day_weather.setLongitude(response.getLong("longitude"));
+                        one_day_weather.setElevation(response.getLong("elevation"));
+                        one_day_weather.setGenerationtime_ms(response.getLong("generationtime_ms"));
+                        one_day_weather.setUtc_offset_seconds(response.getInt("utc_offset_seconds"));
+                        one_day_weather.setTimezone_abbreviation(response.getString("timezone_abbreviation"));
+                        one_day_weather.setDaily_units(response.getJSONObject("daily_units"));
+                        one_day_weather.setDaily(response.getJSONObject("daily"));
+
+
                         weatherReportModels.add(one_day_weather);
+                        foreCastByIDResponse.onResponse(weatherReportModels);
                     }
-
-
-
-                    foreCastByIDResponse.onResponse(weatherReportModels);
 
                 } catch (JSONException e) {
                     System.out.println("huh?");
