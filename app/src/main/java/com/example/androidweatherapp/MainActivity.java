@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(List<WeatherReportModel> weatherReportModels) {
                         // put entire list into listview control
-                        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1);
+                        ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, weatherReportModels);
                         lv_weatherReport.setAdapter(arrayAdapter);
                     }
                 });
