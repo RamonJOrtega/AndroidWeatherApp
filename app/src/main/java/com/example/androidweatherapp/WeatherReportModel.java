@@ -146,8 +146,10 @@ public class WeatherReportModel {
     @Override
     public String toString() {
 
-        return  "Time Zone Date: " + timezone_abbreviation + " " + day + '\n' +
-                getWeatherCodeDescription(weathercode);
+        return
+                getWeatherCodeDescription(weathercode) + '\n' +
+                dayLowTemp + "\u00B0F" +" - " + dayHighTemp + "\u00B0F" + "\n" +
+                timezone_abbreviation + " " + day;
     }
 
 
@@ -156,115 +158,115 @@ public class WeatherReportModel {
         String description = "invalid Code";
         switch (weatherCode) {
             case 0: {
-                description = "Clear sky";
+                description = "Clear sky \t \u263c";
                 break;
             }
             case 1: {
-                description = "Mainly clear";
+                description = "Mainly clear \t \u263c";
                 break;
             }
             case 2: {
-                description = "Partly Cloudy";
+                description = "Partly Cloudy \t \u26C5";
                 break;
             }
             case 3: {
-                description = "Overcast";
+                description = "Overcast \t \u2601";
                 break;
             }
             case 45: {
-                description = "Fog";
+                description = "Fog \t \u2634";
                 break;
             }
             case 48: {
-                description = "Depositing rime fog";
+                description = "Depositing rime fog \t \u2634";
                 break;
             }
             case 51: {
-                description = "Light Drizzle";
+                description = "Light Drizzle \t \uF326";
                 break;
             }
             case 53: {
-                description = "Moderate Drizzle";
+                description = "Moderate Drizzle \t \uF326";
                 break;
             }
             case 55: {
-                description = "Dense Drizzle";
+                description = "Dense Drizzle \t \u2614";
                 break;
             }
             case 56: {
-                description = "Light Freezing Drizzle";
+                description = "Light Freezing Drizzle \t \u2614";
                 break;
             }
             case 57: {
-                description = "Dense Freezing Drizzle";
+                description = "Dense Freezing Drizzle \t \u2614";
                 break;
             }
             case 61: {
-                description = "Slight Rain";
+                description = "Slight Rain \t \uF326";
                 break;
             }
             case 63: {
-                description = "Moderate Rain";
+                description = "Moderate Rain \t \u2614";
                 break;
             }
             case 65: {
-                description = "Heavy Rain";
+                description = "Heavy Rain \t \u26C6";
                 break;
             }
             case 66: {
-                description = "Light Freezing Rain";
+                description = "Light Freezing Rain \t \u26C6";
                 break;
             }
             case 67: {
-                description = "Heavy Freezing Rain";
+                description = "Heavy Freezing Rain \t \u26C6";
                 break;
             }
             case 71: {
-                description = "Slight Snow Fall";
+                description = "Slight Snow Fall \t \u2744";
                 break;
             }
             case 73: {
-                description = "Moderate Snow Fall";
+                description = "Moderate Snow Fall \t \u2744";
                 break;
             }
             case 75: {
-                description = "Heavy Snow Fall";
+                description = "Heavy Snow Fall \t \u26c7";
                 break;
             }
             case 77: {
-                description = "Snow Grains";
+                description = "Snow Grains \t \u2745";
                 break;
             }
             case 80: {
-                description = "Slight Rain Showers";
+                description = "Slight Rain Showers \t \uF326";
                 break;
             }
             case 81: {
-                description = "Moderate Rain Showers";
+                description = "Moderate Rain Showers \t \u2614";
                 break;
             }
             case 82: {
-                description = "Violent Rain Showers";
+                description = "Violent Rain Showers \t \u2614";
                 break;
             }
             case 85: {
-                description = "Slight Snow Showers";
+                description = "Slight Snow Showers \t \u2744";
                 break;
             }
             case 86: {
-                description = "Heavy Snow Showers";
+                description = "Heavy Snow Showers \t \u26c7";
                 break;
             }
             case 95: {
-                description = "Slight/Moderate Thunderstorm";
+                description = "Slight/Moderate Thunderstorm \t \uF329";
                 break;
             }
             case 96: {
-                description = "Thunderstorm with Slight Hail";
+                description = "Thunderstorm with Slight Hail \t \u26c8";
                 break;
             }
             case 99: {
-                description = "Thunderstorm with Heavy Hail";
+                description = "Thunderstorm with Heavy Hail \t \u26c8";
                 break;
             }
             default: {
