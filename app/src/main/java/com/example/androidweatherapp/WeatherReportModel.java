@@ -155,9 +155,10 @@ public class WeatherReportModel {
     public String toString() {
 
         return
+                LocalDate.parse(day, DateTimeFormatter.ISO_DATE).getDayOfWeek().name() + ' ' +
                 getWeatherCodeDescription(weathercode) + '\n' +
                 dayLowTemp + "\u00B0F" +" - " + dayHighTemp + "\u00B0F" + "\n" +
-                timezone_abbreviation + " " + day + " " + LocalDate.parse(day, DateTimeFormatter.ISO_DATE).getDayOfWeek().name();
+                timezone_abbreviation + " " + day + " " + '\n';
     }
 
 
