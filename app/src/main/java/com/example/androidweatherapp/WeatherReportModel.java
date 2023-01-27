@@ -1,6 +1,13 @@
 package com.example.androidweatherapp;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import org.json.JSONObject;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 public class WeatherReportModel {
 
@@ -143,13 +150,14 @@ public class WeatherReportModel {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public String toString() {
 
         return
                 getWeatherCodeDescription(weathercode) + '\n' +
                 dayLowTemp + "\u00B0F" +" - " + dayHighTemp + "\u00B0F" + "\n" +
-                timezone_abbreviation + " " + day;
+                timezone_abbreviation + " " + day + " " + LocalDate.parse(day, DateTimeFormatter.ISO_DATE).getDayOfWeek().name();
     }
 
 
