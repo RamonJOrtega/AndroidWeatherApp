@@ -38,6 +38,7 @@ public class WeatherDataService {
     }
     public void getCityID(String cityName, VolleyResponseListener volleyResponseListener) {
         String url = QUERY_FOR_CITY_ID + cityName;
+        System.out.println("did we get our city name by ID query at?: " + url);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -72,20 +73,21 @@ public class WeatherDataService {
     }
     public void getCityName (String cityID, CityNameByIDResponseListener cityNameByIDResponseListener) {
         String url = QUERY_FOR_CITY_NAME + cityID;
+        System.out.println("did we get our city name by ID query at?: " + url);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                System.out.println(response);
                 cityName = "";
                 latitude = "";
                 longitude = "";
                 try {
-                    JSONArray cityInfoArr = response.getJSONArray("results");
-                    JSONObject cityInfoObj = cityInfoArr.getJSONObject(0);
-                    cityName = cityInfoObj.getString("name");
-                    latitude = Long.toString(cityInfoObj.getLong("latitude"));
-                    longitude = Long.toString(cityInfoObj.getLong("longitude"));
+                    cityName = response.getString("name");
+                    latitude = Long.toString(response.getLong("latitude"));
+                    longitude = Long.toString(response.getLong("longitude"));
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    System.out.println("no response");
                 }
                 Toast.makeText(context, " City ID = " + cityID + " Latitude = " + latitude + " Longitude = " + longitude, Toast.LENGTH_SHORT).show();
                 cityNameByIDResponseListener.onResponse(cityName, latitude, longitude);
@@ -107,7 +109,6 @@ public class WeatherDataService {
     public void getCityForecastByID(String cityID, String latitude, String longitude, ForeCastByIDResponse foreCastByIDResponse) {
         List<WeatherReportModel> weatherReportModels = new ArrayList<>();
         String url = QUERY_FOR_CITY_WEATHER_BY_ID_A + latitude + QUERY_FOR_CITY_WEATHER_BY_ID_B + longitude + QUERY_FOR_CITY_WEATHER_BY_ID_C;
-        Toast.makeText(context, url, Toast.LENGTH_SHORT).show();
         System.out.println(url);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -134,13 +135,14 @@ public class WeatherDataService {
                     foreCastByIDResponse.onResponse(weatherReportModels);
 
                 } catch (JSONException e) {
+                    System.out.println("huh?");
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                System.out.println("huh bro?");
             }
         });
         MySingleton.getInstance(context).addToRequestQueue(request);

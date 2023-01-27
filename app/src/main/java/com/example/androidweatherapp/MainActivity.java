@@ -67,12 +67,15 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onError(String message) {
                         Toast.makeText(MainActivity.this, "Certainly wrong", Toast.LENGTH_SHORT).show();
+
                     }
 
                     @Override
                     public void onResponse(String cityName, String latitude, String longitude) {
                         lat = latitude;
                         lon = longitude;
+                        System.out.println("what up my man? do we have Latitude: " + lat);
+                        System.out.println("what up my man? do we have cityName: " + cityName);
                     }
                 });
                 weatherDataService.getCityForecastByID(et_dataInput.getText().toString(), lat, lon, new WeatherDataService.ForeCastByIDResponse() {
