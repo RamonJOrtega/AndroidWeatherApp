@@ -120,6 +120,7 @@ public class WeatherDataService {
                     JSONArray temperature_2m_min = daily.getJSONArray("temperature_2m_min");
                     JSONArray temperature_2m_max = daily.getJSONArray("temperature_2m_max");
                     JSONArray weathercode = daily.getJSONArray("weathercode");
+
                     WeatherReportModel one_day_weather = new WeatherReportModel();
                     one_day_weather.setLatitude(response.getLong("latitude"));
                     one_day_weather.setLongitude(response.getLong("longitude"));
@@ -129,8 +130,17 @@ public class WeatherDataService {
                     one_day_weather.setTimezone_abbreviation(response.getString("timezone_abbreviation"));
                     one_day_weather.setDaily_units(response.getJSONObject("daily_units"));
                     one_day_weather.setDaily(response.getJSONObject("daily"));
-                    System.out.println("response aquired");
-                    weatherReportModels.add(one_day_weather);
+                    System.out.println("forecast response received for days = " + daily.length());
+
+                    for (int i = 0; i < daily.length(); i++) {
+                        one_day_weather.setDay(date.getString(i));
+                        one_day_weather.setDayLowTemp(temperature_2m_min.getLong(i));
+                        one_day_weather.setDayHighTemp(temperature_2m_max.getLong(i));
+                        one_day_weather.setWeathercode(weathercode.getInt(i));
+                        weatherReportModels.add(one_day_weather);
+                    }
+
+
 
                     foreCastByIDResponse.onResponse(weatherReportModels);
 

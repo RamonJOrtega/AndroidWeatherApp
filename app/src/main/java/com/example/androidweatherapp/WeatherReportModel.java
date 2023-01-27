@@ -4,6 +4,10 @@ import org.json.JSONObject;
 
 public class WeatherReportModel {
 
+    String day;
+    float dayLowTemp;
+    float dayHighTemp;
+    int weathercode;
     private float latitude;
     private float longitude;
     private float elevation;
@@ -14,7 +18,11 @@ public class WeatherReportModel {
     private JSONObject daily_units = new JSONObject();
     private JSONObject daily = new JSONObject();
 
-    public WeatherReportModel(float latitude, float longitude, float elevation, float generationtime_ms, int utc_offset_seconds, String timezone, String timezone_abbreviation, JSONObject daily_units, JSONObject daily) {
+    public WeatherReportModel(String day, float dayLowTemp, float dayHighTemp, int weathercode, float latitude, float longitude, float elevation, float generationtime_ms, int utc_offset_seconds, String timezone, String timezone_abbreviation, JSONObject daily_units, JSONObject daily) {
+        this.day = day;
+        this.dayLowTemp = dayLowTemp;
+        this.dayHighTemp = dayHighTemp;
+        this.weathercode = weathercode;
         this.latitude = latitude;
         this.longitude = longitude;
         this.elevation = elevation;
@@ -26,13 +34,39 @@ public class WeatherReportModel {
         this.daily = daily;
     }
 
-    public WeatherReportModel() {
+    public  WeatherReportModel() {
     }
 
-    @Override
-    public String toString() {
-        return  "Time: " + timezone_abbreviation +
-                ", Forecast= " + daily;
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public float getDayLowTemp() {
+        return dayLowTemp;
+    }
+
+    public void setDayLowTemp(float dayLowTemp) {
+        this.dayLowTemp = dayLowTemp;
+    }
+
+    public float getDayHighTemp() {
+        return dayHighTemp;
+    }
+
+    public void setDayHighTemp(float dayHighTemp) {
+        this.dayHighTemp = dayHighTemp;
+    }
+
+    public int getWeathercode() {
+        return weathercode;
+    }
+
+    public void setWeathercode(int weathercode) {
+        this.weathercode = weathercode;
     }
 
     public float getLatitude() {
@@ -106,6 +140,16 @@ public class WeatherReportModel {
     public void setDaily(JSONObject daily) {
         this.daily = daily;
     }
+
+
+
+    @Override
+    public String toString() {
+
+        return  "Time: " + timezone_abbreviation + " " + day;
+    }
+
+
 
     //    public static String getWeatherCodeDescription(int weatherCode) {
 //        String description = "invalid Code";
