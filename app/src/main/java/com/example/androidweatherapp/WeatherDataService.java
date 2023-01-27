@@ -132,7 +132,7 @@ public class WeatherDataService {
                     one_day_weather.setDaily(response.getJSONObject("daily"));
                     System.out.println("forecast response received for days = " + daily.length());
 
-                    for (int i = 0; i < daily.length(); i++) {
+                    for (int i = 0; i < date.length(); i++) {
                         one_day_weather.setDay(date.getString(i));
                         one_day_weather.setDayLowTemp(temperature_2m_min.getLong(i));
                         one_day_weather.setDayHighTemp(temperature_2m_max.getLong(i));
