@@ -31,13 +31,8 @@ public class WeatherReportModel {
 
     @Override
     public String toString() {
-        return  "latitude=" + latitude +
-                ", longitude= " + longitude +
-                ", elevation= " + elevation +
-                ", generationtime_ms= " + generationtime_ms +
-                ", utc_offset_seconds= " + utc_offset_seconds +
-                ", timezone= " + timezone + ": " + timezone_abbreviation +
-                ", current_weather= " + daily;
+        return  "Time: " + timezone_abbreviation +
+                ", Forecast= " + daily;
     }
 
     public float getLatitude() {
