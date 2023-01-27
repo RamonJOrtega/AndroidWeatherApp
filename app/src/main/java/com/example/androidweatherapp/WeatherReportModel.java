@@ -162,7 +162,6 @@ public class WeatherReportModel {
     }
 
 
-
         public static String getWeatherCodeDescription(int weatherCode) {
         String description = "invalid Code";
         switch (weatherCode) {

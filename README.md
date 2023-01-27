@@ -10,12 +10,9 @@ This application uses Volley.
 Please note that google now recommends Cronet instead of Volley for API parsing.
 Another alternative is Retrofit which is recommend as part of Jetpack (Googles 2019 release)
 
-We install Volley Library
-Parse a JSON data feed
-
 First we find latitude and longitude by city using the Geo Coding api at https://open-meteo.com/en/docs/geocoding-api.
-Then we use the latitude and longitude to get weather by location.
+Then we use the latitude and longitude to get weather by location using the Weather Forcast API.
 
-Thank you freeCodeCamp.org for the tutorial used to create this highly-modified version of the app.
-The biggest change is the removal of the depricated metaWeather API and the more-documented open-meteo API.
+This app is based on a deprecated tutorial at freeCodeCamp.org.
+The biggest change is the removal of the deprecated metaWeather API and the more-documented open-meteo API.
 
