@@ -190,11 +190,11 @@ public class WeatherReportModel {
                 break;
             }
             case 51: {
-                description = "Light Drizzle \t \uF326";
+                description = "Light Drizzle \t \u2614";
                 break;
             }
             case 53: {
-                description = "Moderate Drizzle \t \uF326";
+                description = "Moderate Drizzle \t \u2614";
                 break;
             }
             case 55: {
@@ -210,7 +210,7 @@ public class WeatherReportModel {
                 break;
             }
             case 61: {
-                description = "Slight Rain \t \uF326";
+                description = "Slight Rain \t \u2614";
                 break;
             }
             case 63: {
@@ -246,7 +246,7 @@ public class WeatherReportModel {
                 break;
             }
             case 80: {
-                description = "Slight Rain Showers \t \uF326";
+                description = "Slight Rain Showers \t \u2614";
                 break;
             }
             case 81: {
