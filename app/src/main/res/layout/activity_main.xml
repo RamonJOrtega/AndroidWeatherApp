@@ -11,25 +11,28 @@
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_corner"
         android:insetLeft="6dp"
         android:insetRight="0dp"
         android:minHeight="30dp"
         android:text="CITY ID"
         app:iconPadding="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_getWeatherByCityID"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="@+id/textView3" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lv_weatherReports" />
 
     <Button
         android:id="@+id/btn_getWeatherByCityID"
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:background="@drawable/rounded_corner"
         android:minHeight="30dp"
         android:text="WEATHER BY ID"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_getCityID"
         app:layout_constraintTop_toTopOf="@+id/btn_getCityID" />
 
     <Button
@@ -37,6 +40,7 @@
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:background="@drawable/rounded_corner"
         android:insetLeft="0dp"
         android:insetRight="6dp"
@@ -49,6 +53,7 @@
         android:id="@+id/et_dataInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:ems="10"
         android:hint="Enter City Name"
         android:inputType="textPersonName"
@@ -61,7 +66,7 @@
         android:id="@+id/lv_weatherReports"
         android:layout_width="330dp"
         android:layout_height="570dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_getCityID"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,10 +74,12 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="107dp"
-        android:layout_height="37dp"
-        android:text="alternative search by ID"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_width="89dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="optional ID search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_getWeatherByCityID"
+        app:layout_constraintTop_toTopOf="@+id/btn_getWeatherByCityID" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
